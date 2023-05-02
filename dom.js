@@ -1,6 +1,7 @@
 import {renderComments} from "./render.js";
 import{getCommentsLoading,getComments,postComments} from "./api.js";
 
+
 const buttonElement = document.getElementById("add-button");
 const commentsElement = document.getElementById("comments" ); 
 const nameInputElement = document.getElementById("name-input" );

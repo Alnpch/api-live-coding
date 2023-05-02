@@ -8,7 +8,7 @@ let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
 let commentsLoading = document.getElementById("commentsLoading" );
 
 let host = "https://webdev-hw-api.vercel.app/api/v2/alina-pitskhelauri/comments";
-export function getCommentsLoading(comments) {
+export function getCommentsLoading(token) {
     
     return fetch(host, {
     method: "GET",
@@ -50,7 +50,7 @@ console.warn(error);
 }); 
 }
 //2get
-export function getComments(comments) {
+export function getComments(token) {
     return fetch(host, {
      method: "GET",
      headers: {

@@ -4,9 +4,49 @@ const commentsElement = document.getElementById("comments" );
 import{data}from "./dom.js";
 import{fetchAndRenderCommentsTwo} from "./dom.js";
 import{postComments} from "./api.js";
+import{renderLoginComponent} from "./login-component.js";
+let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
+token =null;
 // рендер
 export const renderComments = () =>{
   const appEl = document.getElementById("app");
+  if (!token) {
+  //  const  appHtml = `<div class="container">
+  //   <div class="container-login">
+   
+  //         <div id= "add-form"  class="add-form">
+  //           <input
+  //             type="text"
+  //             id="login-input"
+  //             class="add-form-name"
+  //             placeholder="Логин"
+  //           />
+  //           <textarea
+  //             type="textarea"
+  //             id="password-input"
+  //             class="password-form-text"
+  //             placeholder="Пароль"
+  //             rows="4"
+  //           ></textarea>
+  //           <div class="add-form-row">
+  //             <button id="login-button" class="add-form-button">Войти</button>
+  //           </div>
+  //         </div>
+  //         </div>
+  //        </div>`
+  //        appEl.innerHTML = appHtml;
+  //        document.getElementById('login-button').addEventListener('click',() =>{
+  //         token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
+  //         renderComments();
+  //         fetchAndRenderCommentsTwo(); 
+  //        })
+         renderLoginComponent({ appEl, setToken: (newToken) =>{
+         token = newToken
+         },
+         fetchAndRenderCommentsTwo,
+         });
+         return;   
+  }
   const commentsHtml = window.comments.map((comment, index) => {
     return ` <li class="comment" data-text="${comment.text}" data-name="${comment.name}"
     data-date= "${comment.date}" data-counter="${comment.likesCounter}">
@@ -30,27 +70,7 @@ export const renderComments = () =>{
     }).join(''); 
     
  const appHtml = `<div class="container">
- <div class="container-login">
 
-       <div id= "add-form"  class="add-form">
-         <input
-           type="text"
-           id="login-input"
-           class="add-form-name"
-           placeholder="Логин"
-         />
-         <textarea
-           type="textarea"
-           id="password-input"
-           class="password-form-text"
-           placeholder="Пароль"
-           rows="4"
-         ></textarea>
-         <div class="add-form-row">
-           <button id="login-button" class="add-form-button">Войти</button>
-         </div>
-       </div>
-       </div>
        <ul id="comments" class="comments">${commentsHtml} </ul>
       
     
