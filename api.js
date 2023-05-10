@@ -106,6 +106,7 @@ export function postComments(nameInputElement,commentInputElement,token) {
       })
           
 }
+//вход
 export function loginUser({login, password,token}) {
     return   fetch( "https://webdev-hw-api.vercel.app/api/user/login", {
         method: "POST",
@@ -121,7 +122,7 @@ export function loginUser({login, password,token}) {
           return response.json();
       })
     }
-    
+    //reg
 export function registerUser({login, password,token,name}) {
     return   fetch( "https://webdev-hw-api.vercel.app/api/user", {
         method: "POST",
