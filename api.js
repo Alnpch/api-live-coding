@@ -1,7 +1,7 @@
 import {initEventListeners}from "./dom.js";
 import{data}from "./dom.js";
 import{renderComments}from "./render.js";
-
+import{fetchAndRenderCommentsTwo} from "./dom.js";
 const commentsElement = document.getElementById("comments" );
 let addForm = document.getElementById("add-form");
 
@@ -108,6 +108,7 @@ export function postComments(nameInputElement,commentInputElement,token) {
 }
 //вход
 export function loginUser({login, password,token}) {
+ 
     return   fetch( "https://webdev-hw-api.vercel.app/api/user/login", {
         method: "POST",
         body: JSON.stringify({ 
