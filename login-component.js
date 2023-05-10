@@ -1,4 +1,4 @@
-import { loginUser } from "./api.js";
+import { loginUser, registerUser } from "./api.js";
 import{fetchAndRenderCommentsTwo} from "./dom.js";
 import {renderComments} from "./render.js";
 
@@ -43,7 +43,8 @@ export function renderLoginComponent({ appEl, setToken }){
          </div>`
          appEl.innerHTML = appHtml;
          document.getElementById('login-button').addEventListener('click',() =>{
-         const login = document.getElementById('login-input').value; 
+          if (isLoginMode) {
+           const login = document.getElementById('login-input').value; 
          const password = document.getElementById('password-input').value;
          if (!password) {
           alert("Введите пароль")
@@ -62,7 +63,36 @@ export function renderLoginComponent({ appEl, setToken }){
           fetchAndRenderCommentsTwo(); 
         }).catch((error) => {
           alert('Неверный логин или пароль');
+        }); 
+          } else {
+         const login = document.getElementById('login-input').value; 
+         const name = document.getElementById('name-input').value; 
+         const password = document.getElementById('password-input').value;
+         if (!password) {
+          alert("Введите пароль")
+          return;
+         }
+         if (!name) {
+          alert("Введите имя")
+          return;
+         }
+         if (!login) {
+          alert("Введите логин")
+          return;
+         }
+         registerUser({login:login, 
+          password:password,
+          name: name,
+        }).then((user) => {
+          console.log(user);
+          setToken(`Bearer ${user.user.token}`);
+          renderComments();
+          fetchAndRenderCommentsTwo(); 
+        }).catch((error) => {
+          alert('Неверный логин или пароль');
         });
+          }
+         
 
           
          });

@@ -122,3 +122,20 @@ export function loginUser({login, password,token}) {
       })
     }
     
+export function registerUser({login, password,token,name}) {
+    return   fetch( "https://webdev-hw-api.vercel.app/api/user", {
+        method: "POST",
+        body: JSON.stringify({ 
+        login,
+        password,
+        token,
+        name,
+        })
+    }).then((response) => {
+     if(response.status === 400){
+      throw new Error('Такой пользователь уже сущесвует')
+     }
+          return response.json();
+      })
+    }
+        
