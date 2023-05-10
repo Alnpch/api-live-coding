@@ -6,7 +6,7 @@ import{fetchAndRenderCommentsTwo} from "./dom.js";
 import{postComments} from "./api.js";
 import{renderLoginComponent} from "./login-component.js";
 let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
-token =null;
+token = null;
 // рендер
 export const renderComments = () =>{
   const appEl = document.getElementById("app");
@@ -43,7 +43,7 @@ export const renderComments = () =>{
          renderLoginComponent({ appEl, setToken: (newToken) =>{
          token = newToken
          },
-         fetchAndRenderCommentsTwo,
+         fetchAndRenderCommentsTwo, 
          });
          return;   
   }
@@ -142,7 +142,7 @@ export const renderComments = () =>{
       
       
     
-    return postComments(comments[comments.length - 1].name, comments[comments.length - 1].text)
+    return postComments(comments[comments.length - 1].name, comments[comments.length - 1].text, token)
     .then(() => {
       
     }).then(() => {

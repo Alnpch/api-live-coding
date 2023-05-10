@@ -4,7 +4,7 @@ import{renderComments}from "./render.js";
 
 const commentsElement = document.getElementById("comments" );
 let addForm = document.getElementById("add-form");
-let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
+
 let commentsLoading = document.getElementById("commentsLoading" );
 
 let host = "https://webdev-hw-api.vercel.app/api/v2/alina-pitskhelauri/comments";
@@ -79,7 +79,7 @@ export function getComments(token) {
  })  
 }
 
-export function postComments(nameInputElement,commentInputElement) {
+export function postComments(nameInputElement,commentInputElement,token) {
     return   fetch(host, {
         method: "POST",
         body: JSON.stringify({ 
@@ -106,3 +106,19 @@ export function postComments(nameInputElement,commentInputElement) {
       })
           
 }
+export function loginUser({login, password,token}) {
+    return   fetch( "https://webdev-hw-api.vercel.app/api/user/login", {
+        method: "POST",
+        body: JSON.stringify({ 
+        login,
+        password,
+        token,
+        })
+    }).then((response) => {
+     if(response.status === 400){
+      throw new Error('Неверный логин или пароль')
+     }
+          return response.json();
+      })
+    }
+    

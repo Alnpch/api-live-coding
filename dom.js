@@ -12,12 +12,10 @@ let addForm = document.getElementById("add-form");
 let commentsLoading = document.getElementById("commentsLoading" );
 
 let host = "https://webdev-hw-api.vercel.app/api/v1/alina-pitskhelauri/comments";
-
+let token = "Bearer asb4c4boc86gasb4c4boc86g37k3bk3cg3c03ck3k37w3cc3bo3b8";
 
 // get
 export const fetchAndRenderComments = () => {
- 
-  
  return getCommentsLoading();
  
 };
