@@ -1,8 +1,7 @@
 import { loginUser, registerUser } from "./api.js";
 import{fetchAndRenderCommentsTwo} from "./dom.js";
 import {renderComments} from "./render.js";
-
-
+import _ from 'lodash';
 export function renderLoginComponent({ appEl, setToken }){
   let isLoginMode = true;
   const renderForm = () => {
@@ -14,7 +13,7 @@ export function renderLoginComponent({ appEl, setToken }){
           ${isLoginMode ? '' : 
           `<input
           type="text"
-          id="name-input"
+          id="name-reg-input"
           class="add-form-name"
           placeholder="Имя"
         />`} 
@@ -59,15 +58,16 @@ export function renderLoginComponent({ appEl, setToken }){
         }).then((user) => {
           console.log(user);
           setToken(`Bearer ${user.user.token}`);
-          renderComments();
+          renderComments(user);
           fetchAndRenderCommentsTwo(); 
         }).catch((error) => {
           alert('Неверный логин или пароль');
         }); 
           } else {
          const login = document.getElementById('login-input').value; 
-         const name = document.getElementById('name-input').value; 
+         const name = document.getElementById('name-reg-input').value; 
          const password = document.getElementById('password-input').value;
+        
          if (!password) {
           alert("Введите пароль")
           return;
@@ -82,12 +82,13 @@ export function renderLoginComponent({ appEl, setToken }){
          }
          registerUser({login:login, 
           password:password,
-          name: name,
+          name: _.capitalize(name),
         }).then((user) => {
           console.log(user);
           setToken(`Bearer ${user.user.token}`);
-          renderComments();
+          renderComments(user);
           fetchAndRenderCommentsTwo(); 
+          
         }).catch((error) => {
           alert('Неверный логин или пароль');
         });

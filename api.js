@@ -1,12 +1,7 @@
 import {initEventListeners}from "./dom.js";
-import{data}from "./dom.js";
-import{renderComments}from "./render.js";
-import{fetchAndRenderCommentsTwo} from "./dom.js";
-const commentsElement = document.getElementById("comments" );
-let addForm = document.getElementById("add-form");
-
-let commentsLoading = document.getElementById("commentsLoading" );
-
+import {renderComments}from "./render.js";
+import { format } from "date-fns";
+import {data} from "./dom.js";
 let host = "https://webdev-hw-api.vercel.app/api/v2/alina-pitskhelauri/comments";
 export function getCommentsLoading(token) {
     
@@ -25,9 +20,10 @@ export function getCommentsLoading(token) {
   jsonPromise.then((responseData) => {
   
   let appComments = responseData.comments.map((comment) => {
+   
   return {
     name: comment.author.name,
-    date: data (comment.date),
+    date: format(new Date(comment.date), 'yyyy-MM-dd hh.mm.ss'),
     text: comment.text,
     likesCounter: 0,
     
@@ -39,9 +35,6 @@ export function getCommentsLoading(token) {
     initEventListeners();
     
   });
-  
-}).then(() => {
-  
   
 }).catch((error) =>{
   
@@ -61,9 +54,10 @@ export function getComments(token) {
    
    jsonPromise.then((responseData) => {
    let appComments = responseData.comments.map((comment) => {
+    
    return {
      name: comment.author.name,
-     date: data (comment.date) ,
+     date: format(new Date(comment.date), 'yyyy-MM-dd hh.mm.ss'),
      text: comment.text,
      likesCounter: 0,
      
@@ -80,14 +74,14 @@ export function getComments(token) {
 }
 
 export function postComments(nameInputElement,commentInputElement,token) {
-    return   fetch(host, {
+  
+    return fetch(host, {
         method: "POST",
         body: JSON.stringify({ 
-        date: data () ,
+        date: format(new Date(comment.date), 'yyyy-MM-dd hh.mm.ss'),
         name: nameInputElement,
         text: commentInputElement,
         likesCounter: 0,
-        
         }), headers: {
           Authorization: token,
         }

@@ -1,15 +1,10 @@
 import {renderComments} from "./render.js";
-import{getCommentsLoading,getComments,postComments} from "./api.js";
+import {getCommentsLoading,getComments,postComments} from "./api.js";
 
 
-const buttonElement = document.getElementById("add-button");
-const commentsElement = document.getElementById("comments" ); 
-const nameInputElement = document.getElementById("name-input" );
-const commentInputElement = document.getElementById("comment-input" );
-const likes = document.querySelectorAll('.likes'); 
-let addFormLoading = document.getElementById("addFormLoading" );
-let addForm = document.getElementById("add-form");
-let commentsLoading = document.getElementById("commentsLoading" );
+
+const commentInputElement = document.getElementById("comment-input");
+
 
 let host = "https://webdev-hw-api.vercel.app/api/v1/alina-pitskhelauri/comments";
 let token = "Bearer asb4c4boc86gasb4c4boc86g37k3bk3cg3c03ck3k37w3cc3bo3b8";
@@ -59,8 +54,8 @@ for (const commentAnswer of commentElementsAnswer) {
   commentAnswer.addEventListener('click', () => {
     const text = commentAnswer.dataset.text;
     const nameComment = commentAnswer.dataset.name;
-    commentInputElement.value = text +"\n" + nameComment ;
-    
+    commentInputElement.value = text +"\n" + nameComment;
+    console.log(commentInputElement);
   })
 }
 }
@@ -69,8 +64,8 @@ window.comments = [];
   
   
 // дата
-export function data () {
-let myDate = new Date(); 
+export function data (comment) {
+let myDate = new Date(comment); 
 const months = ["01", "02", "03", "04", "05", "06",
 "07", "08", "09", "10", "11", "12"];
 let year = String(myDate.getFullYear()).slice(2);

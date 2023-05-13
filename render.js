@@ -1,14 +1,14 @@
 
 import {initEventListeners}from "./dom.js";
-const commentsElement = document.getElementById("comments" );
-import{data}from "./dom.js";
 import{fetchAndRenderCommentsTwo} from "./dom.js";
 import{postComments} from "./api.js";
 import{renderLoginComponent} from "./login-component.js";
-let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
-token = null;
+import{data}from "./dom.js";
+
+let token = null;
+
 // рендер
-export const renderComments = () =>{
+export const renderComments = (user) =>{
   const appEl = document.getElementById("app");
   if (!token) {
     const commentsHtml = window.comments.map((comment, index) => {
@@ -55,6 +55,7 @@ export const renderComments = () =>{
       
          return;   
   }
+   
   const commentsHtml = window.comments.map((comment, index) => {
     return ` <li class="comment" data-text="${comment.text}" data-name="${comment.name}"
     data-date= "${comment.date}" data-counter="${comment.likesCounter}">
@@ -81,30 +82,32 @@ export const renderComments = () =>{
 
        <ul id="comments" class="comments">${commentsHtml} </ul>
       
-    
     <div id= "addFormLoading" class="addFormLoading">
-      <div id= "add-form" class="add-form">
-        <input
-          type="text"
-          id="name-input"
-          class="add-form-name"
-          placeholder="Введите ваше имя"
-        />
-        <textarea
-          type="textarea"
-          id="comment-input"
-          class="add-form-text"
-          placeholder="Введите ваш коментарий"
-          rows="4"
-        ></textarea>
-        <div class="add-form-row">
-          <button id="add-button" class="add-form-button">Написать</button>
-        </div>
-      </div>`
+    <div id= "add-form" class="add-form">
+      <input
+        type="text"
+        id="name-input"
+        class="add-form-name"
+        placeholder="Введите ваше имя"
+         ${user ? `value="${user.name}"` : `value=""`}
+              disabled
+        
+      />
+      <textarea
+        type="textarea"
+        id="comment-input"
+        class="add-form-text"
+        placeholder="Введите ваш коментарий"
+        rows="4"
+      ></textarea>
+      <div class="add-form-row">
+        <button id="add-button" class="add-form-button">Написать</button>
+      </div>
+    </div>`
     
-          
+         
     initEventListeners();
-   
+    
     appEl.innerHTML = appHtml;
     
     const buttonElement = document.getElementById("add-button");
@@ -115,7 +118,7 @@ export const renderComments = () =>{
  
     buttonElement.addEventListener("click", () => {
   
-   
+      
       nameInputElement.classList.remove('error');
     
       if (nameInputElement.value === '' ) {
@@ -152,8 +155,6 @@ export const renderComments = () =>{
     
     return postComments(comments[comments.length - 1].name, comments[comments.length - 1].text, token)
     .then(() => {
-      
-    }).then(() => {
       return fetchAndRenderCommentsTwo();
      
      })
@@ -177,6 +178,6 @@ export const renderComments = () =>{
       
     });
     
-    } 
+    }  
     
     
